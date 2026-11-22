@@ -139,7 +139,24 @@ fn is_process_running(name: &str) -> bool {
         .unwrap_or(false)
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
+fn is_process_running(name: &str) -> bool {
+    let exe_name = if name.to_ascii_lowercase().ends_with(".exe") {
+        name.to_string()
+    } else {
+        format!("{name}.exe")
+    };
+    Command::new("tasklist")
+        .args(["/FI", &format!("IMAGENAME eq {exe_name}"), "/NH"])
+        .output()
+        .map(|out| {
+            let stdout = String::from_utf8_lossy(&out.stdout).to_ascii_lowercase();
+            stdout.contains(&exe_name.to_ascii_lowercase())
+        })
+        .unwrap_or(false)
+}
+
+#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
 fn is_process_running(_name: &str) -> bool {
     false
 }
@@ -196,19 +213,31 @@ fn quit_flow_app(target: String) -> Result<(), String> {
 
     #[cfg(target_os = "macos")]
     {
-        let script = format!(
-            "tell application \"System Events\"\n\
-             set procs to (every process whose name is \"{app_name}\" or name is \"{bin_name}\")\n\
-             if (count of procs) > 0 then\n\
-               set procName to name of item 1 of procs\n\
-               tell application procName to quit\n\
-             end if\n\
-             end tell"
-        );
-        Command::new("osascript")
-            .args(["-e", &script])
-            .spawn()
-            .map_err(|err| format!("Failed to quit {app_name}: {err}"))?;
+        let script = format!("tell application \"{app_name}\" to quit");
+        let _ = Command::new("osascript").args(["-e", &script]).output();
+
+        if is_process_running(app_name) || is_process_running(bin_name) {
+            let _ = Command::new("pkill").args(["-TERM", "-xi", bin_name]).output();
+            let _ = Command::new("pkill").args(["-TERM", "-xi", app_name]).output();
+        }
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        for exe in [format!("{bin_name}.exe"), format!("{app_name}.exe")] {
+            if is_process_running(&exe) {
+                let out = Command::new("taskkill").args(["/IM", &exe]).output();
+                let ok = out.map(|o| o.status.success()).unwrap_or(false);
+                if !ok {
+                    let _ = Command::new("taskkill").args(["/F", "/IM", &exe, "/T"]).output();
+                }
+            }
+        }
+    }
+
+    #[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
+    {
+        let _ = (app_name, bin_name);
     }
 
     Ok(())
