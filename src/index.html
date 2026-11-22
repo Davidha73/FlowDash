@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowDash</title>
+    <link rel="stylesheet" href="./styles/theme.css" />
+    <link rel="stylesheet" href="./styles/flowdash.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar" role="banner">
+        <div class="menu-row">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span class="brand-name">FlowDash</span>
+            <button
+              type="button"
+              class="btn-more-dots"
+              id="btn-settings"
+              title="Settings"
+              aria-label="Open Settings"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+            >
+              <i data-lucide="ellipsis-vertical" class="lucide-sm"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="dash-workspace" role="main">
+        <div class="dash-container">
+          <div
+            id="reminder-banner-stack"
+            class="reminder-banner-stack"
+            hidden
+            role="region"
+            aria-label="Due reminders"
+          ></div>
+          <section class="app-cards-section" aria-label="Flow Suite Applications">
+            <div class="section-heading-row">
+              <h1 class="section-heading">Flow Suite</h1>
+              <button type="button" class="section-all-btn" id="btn-filter-all" title="Show all apps">All</button>
+            </div>
+
+            <div class="app-cards-grid">
+              <div class="app-card" data-app="wordflow" role="button" tabindex="0" aria-pressed="false">
+                <button type="button" class="app-card-switch-btn" data-app-switch="wordflow" title="Switch to WordFlow" aria-label="Switch to WordFlow">
+                  <i data-lucide="arrow-up-right" class="lucide-xs"></i>
+                </button>
+                <div class="app-card-top">
+                  <span class="brand-mark app-card-mark" aria-hidden="true">W</span>
+                  <div class="app-card-meta">
+                    <div class="app-card-title-row">
+                      <h2 class="app-card-title">WordFlow</h2>
+                      <div class="app-card-menu-wrap">
+                        <button type="button" class="app-card-menu-btn" data-app-menu="wordflow" title="WordFlow options" aria-label="WordFlow options" aria-haspopup="menu" aria-expanded="false">
+                          <i data-lucide="ellipsis-vertical" class="lucide-xs"></i>
+                        </button>
+                        <div class="app-card-menu-popover" role="menu">
+                          <button type="button" class="app-card-menu-item" id="btn-quit-wordflow" role="menuitem" disabled>
+                            <i data-lucide="power" class="lucide-xs"></i>
+                            <span>Close App</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="app-card-desc">Documents, reports, Markdown &amp; diagrams</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="app-card" data-app="boardflow" role="button" tabindex="0" aria-pressed="false">
+                <button type="button" class="app-card-switch-btn" data-app-switch="boardflow" title="Switch to BoardFlow" aria-label="Switch to BoardFlow">
+                  <i data-lucide="arrow-up-right" class="lucide-xs"></i>
+                </button>
+                <div class="app-card-top">
+                  <span class="brand-mark app-card-mark" aria-hidden="true">B</span>
+                  <div class="app-card-meta">
+                    <div class="app-card-title-row">
+                      <h2 class="app-card-title">BoardFlow</h2>
+                      <div class="app-card-menu-wrap">
+                        <button type="button" class="app-card-menu-btn" data-app-menu="boardflow" title="BoardFlow options" aria-label="BoardFlow options" aria-haspopup="menu" aria-expanded="false">
+                          <i data-lucide="ellipsis-vertical" class="lucide-xs"></i>
+                        </button>
+                        <div class="app-card-menu-popover" role="menu">
+                          <button type="button" class="app-card-menu-item" id="btn-quit-boardflow" role="menuitem" disabled>
+                            <i data-lucide="power" class="lucide-xs"></i>
+                            <span>Close App</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="app-card-desc">Infinite whiteboard, sticky notes &amp; frames</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="app-card" data-app="noteflow" role="button" tabindex="0" aria-pressed="false">
+                <button type="button" class="app-card-switch-btn" data-app-switch="noteflow" title="Switch to NoteFlow" aria-label="Switch to NoteFlow">
+                  <i data-lucide="arrow-up-right" class="lucide-xs"></i>
+                </button>
+                <div class="app-card-top">
+                  <span class="brand-mark app-card-mark" aria-hidden="true">N</span>
+                  <div class="app-card-meta">
+                    <div class="app-card-title-row">
+                      <h2 class="app-card-title">NoteFlow</h2>
+                      <div class="app-card-menu-wrap">
+                        <button type="button" class="app-card-menu-btn" data-app-menu="noteflow" title="NoteFlow options" aria-label="NoteFlow options" aria-haspopup="menu" aria-expanded="false">
+                          <i data-lucide="ellipsis-vertical" class="lucide-xs"></i>
+                        </button>
+                        <div class="app-card-menu-popover" role="menu">
+                          <button type="button" class="app-card-menu-item" id="btn-quit-noteflow" role="menuitem" disabled>
+                            <i data-lucide="power" class="lucide-xs"></i>
+                            <span>Close App</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="app-card-desc">Quick cards, checklists, reminders &amp; links</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="upcoming-strip" aria-label="Planned Flow Suite Apps">
+              <span class="upcoming-label">Coming to Suite:</span>
+              <span class="upcoming-pill"><i data-lucide="check-square" class="lucide-xs"></i> TaskFlow</span>
+              <span class="upcoming-pill"><i data-lucide="box" class="lucide-xs"></i> CADFlow</span>
+            </div>
+          </section>
+
+          <section class="recent-docs-card" aria-label="Recent Work and Templates">
+            <div class="recent-docs-header">
+              <h2 class="recent-docs-title">Recent Work</h2>
+              <span class="recent-docs-count" id="recent-docs-count">0 items</span>
+            </div>
+
+            <div id="recent-list-wrap"></div>
+            <div class="recent-templates-more-row" id="recents-more-row" hidden>
+              <button type="button" class="recent-templates-more-btn" id="btn-more-recents">More…</button>
+            </div>
+
+            <div class="recent-templates-section">
+              <div class="recent-templates-heading">Start from a Template</div>
+              <div class="recent-templates-grid" id="templates-grid"></div>
+              <div class="recent-templates-more-row" id="templates-more-row" hidden>
+                <button type="button" class="recent-templates-more-btn" id="btn-more-templates">More…</button>
+              </div>
+            </div>
+
+            <div class="recent-docs-actions" id="recent-docs-actions"></div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="status-bar" role="contentinfo">
+        <div class="status-left">
+          <span class="status-item" id="status-suite-summary">Flow Suite • Ready</span>
+        </div>
+        <div class="status-right">
+          <span class="status-item" id="status-theme-label">Theme: Light</span>
+        </div>
+      </footer>
+    </div>
+
+    <div class="settings-backdrop" id="settings-backdrop" aria-hidden="true"></div>
+    <aside class="settings-drawer" id="settings-drawer" role="dialog" aria-modal="true" aria-label="Settings" aria-hidden="true">
+      <div class="settings-drawer-header">
+        <span class="settings-drawer-title">Settings</span>
+        <button type="button" class="btn-close-settings" id="btn-close-settings" aria-label="Close Settings" title="Close">
+          <i data-lucide="x" class="lucide-sm"></i>
+        </button>
+      </div>
+      <div class="settings-drawer-body">
+        <div class="settings-section-header">Appearance &amp; Startup</div>
+        <div class="settings-row">
+          <label class="settings-label" for="settings-theme">UI Theme</label>
+          <select id="settings-theme" class="settings-select">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">System (Auto)</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label class="settings-label" for="settings-default-filter">Default Filter</label>
+          <select id="settings-default-filter" class="settings-select">
+            <option value="all" selected>All Suite</option>
+            <option value="wordflow">WordFlow</option>
+            <option value="boardflow">BoardFlow</option>
+          </select>
+        </div>
+      </div>
+      <div class="settings-drawer-footer">
+        <span class="settings-version" id="settings-version">v0.1.0</span>
+        <button type="button" class="settings-footer-btn" id="btn-cancel-settings">Cancel</button>
+        <button type="button" class="settings-footer-btn is-primary" id="btn-save-settings">Save</button>
+      </div>
+    </aside>
+
+    <div class="dict-modal-backdrop" id="all-templates-modal-backdrop" aria-hidden="true"></div>
+    <section class="all-templates-modal" id="all-templates-modal" role="dialog" aria-modal="true" aria-label="All Templates" aria-hidden="true">
+      <div class="dict-modal-header">
+        <span class="settings-drawer-title">All Templates</span>
+        <button type="button" class="btn-close-settings" id="btn-close-all-templates" title="Close" aria-label="Close">
+          <i data-lucide="x" class="lucide-sm"></i>
+        </button>
+      </div>
+      <div class="all-templates-modal-body">
+        <div class="recent-templates-grid" id="all-templates-grid"></div>
+      </div>
+      <div class="dict-modal-footer">
+        <button type="button" class="settings-footer-btn is-primary" id="btn-done-all-templates">Done</button>
+      </div>
+    </section>
+
+    <div class="dict-modal-backdrop" id="all-recents-modal-backdrop" aria-hidden="true"></div>
+    <section class="all-templates-modal" id="all-recents-modal" role="dialog" aria-modal="true" aria-label="All Recent Work" aria-hidden="true">
+      <div class="dict-modal-header">
+        <span class="settings-drawer-title">Recent Work</span>
+        <button type="button" class="btn-close-settings" id="btn-close-all-recents" title="Close" aria-label="Close">
+          <i data-lucide="x" class="lucide-sm"></i>
+        </button>
+      </div>
+      <div class="all-templates-modal-body">
+        <div class="recent-docs-list" id="all-recents-list" role="list"></div>
+      </div>
+      <div class="dict-modal-footer">
+        <button type="button" class="settings-footer-btn is-primary" id="btn-done-all-recents">Done</button>
+      </div>
+    </section>
+
+    <div class="flow-toast" id="flow-toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
