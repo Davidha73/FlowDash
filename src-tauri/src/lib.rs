@@ -5,6 +5,9 @@ use std::process::Command;
 use serde::{Deserialize, Serialize};
 use tauri::Manager;
 
+mod grammar;
+mod spellcheck;
+
 #[derive(Deserialize)]
 struct WindowSettings {
     width: Option<u32>,
@@ -524,7 +527,13 @@ pub fn run() {
             read_flow_suite_index,
             list_noteflow_notes,
             update_noteflow_reminder,
-            send_system_notification
+            send_system_notification,
+            spellcheck::check_word_spelling,
+            spellcheck::add_word_to_dictionary,
+            spellcheck::get_custom_dictionary,
+            spellcheck::remove_word_from_dictionary,
+            spellcheck::clear_custom_dictionary,
+            grammar::check_grammar
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
